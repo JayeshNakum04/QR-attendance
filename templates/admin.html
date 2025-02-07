@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Attendance Reports</title>
+
+    <!-- Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <link rel="stylesheet" href="static\css\admin.css" />
+  </head>
+  <body>
+    <h2>Admin Dashboard - Attendance Reports</h2>
+
+    <!-- Search Input -->
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search by User ID..."
+      onkeyup="filterTable()"
+    />
+
+    <div class="btn-container">
+      <button onclick="exportTableToCSV()">Export to CSV</button>
+      <button onclick="exportToExcel()">Export to Excel</button>
+    </div>
+
+    <table id="attendanceTable">
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Name</th>
+          <th>Timestamp</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in records %}
+        <tr id="row-{{ row[0] }}">
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+          <td>{{ row[3] }}</td>
+          <td>
+            <button onclick="deleteEntry({{ row[0] }})">Delete</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <script src="static\admin.js"></script>
+  </body>
+</html>
